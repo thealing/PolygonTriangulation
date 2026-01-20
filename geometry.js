@@ -43,7 +43,10 @@ function fixPolygon(polygon) {
     area += polygon[i1].x * polygon[i2].y - polygon[i1].y * polygon[i2].x;
   }
   if (area < 0) {
-    polygon.reverse();
+    return [...polygon].reverse();
+  }
+  else {
+    return polygon;
   }
 }
 

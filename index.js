@@ -43,9 +43,16 @@ function init() {
     if (!polygonFinished) {
       return;
     }
-    fixPolygon(polygonPoints);
-    triangulation = triangulatePolygon(polygonPoints);
-    if (triangulation.length != polygonPoints.length - 2) {
+    var fixedPoints = fixPolygon(polygonPoints);
+    triangulation = triangulatePolygon(fixedPoints);
+    if (fixedPoints != polygonPoints) {
+      for (var triangle of triangulation) {
+        for (var i = 0; i < 3; i++) {
+          triangle[i] = fixedPoints.length - 1 - triangle[i];
+        }
+      }
+    }
+    if (triangulation.length != fixedPoints.length - 2) {
       throw new Error("triangulation failed");
     }
   });
