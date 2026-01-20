@@ -107,8 +107,8 @@ label, input {
 }
 
 #content * {
-	position: relative;
-	border: var(--border);
+  position: relative;
+  border: var(--border);
 }
 
 #display-canvas {
