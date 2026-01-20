@@ -4,6 +4,7 @@ function init() {
   widthInput = document.getElementById("width-input");
   heightInput = document.getElementById("height-input");
   marginInput = document.getElementById("margin-input");
+  undoButton = document.getElementById("undo-button");
   clearButton = document.getElementById("clear-button");
   pointsInput = document.getElementById("points-input");
   proximityInput = document.getElementById("proximity-input");
@@ -17,6 +18,14 @@ function init() {
   polygonPoints = [];
   polygonFinished = false;
   triangulation = [];
+  undoButton.addEventListener("click", function() {
+    if (polygonFinished) {
+      polygonFinished = false;
+      triangulation = [];
+      return;
+    }
+    polygonPoints.pop()
+  });
   clearButton.addEventListener("click", function() {
     polygonFinished = false;
     polygonPoints = [];
