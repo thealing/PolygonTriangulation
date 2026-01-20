@@ -6,6 +6,7 @@ function init() {
   marginInput = document.getElementById("margin-input");
   clearButton = document.getElementById("clear-button");
   pointsInput = document.getElementById("points-input");
+  proximityInput = document.getElementById("proximity-input");
   generateButton = document.getElementById("generate-button");
   triangulateButton = document.getElementById("triangulate-button");
   displayCanvas = document.getElementById("display-canvas");
@@ -25,7 +26,7 @@ function init() {
     const width = parseInt(widthInput.value);
     const height = parseInt(heightInput.value);
     const margin = parseInt(marginInput.value);
-    polygonPoints = generateRandomPolygon(pointsInput.value, margin, margin, width - margin, height - margin);
+    polygonPoints = generateRandomPolygon(pointsInput.value, proximityInput.value, margin, margin, width - margin, height - margin);
     polygonFinished = true;
     triangulation = [];
   });

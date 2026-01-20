@@ -14,6 +14,25 @@ function testPointTriangle(p, a, b, c) {
   return orient(a, b, p) >= 0 && orient(b, c, p) >= 0 && orient(c, a, p) >= 0;
 }
 
+function pointSegmentDistance(p, a, b) {
+  const vx = b.x - a.x;
+  const vy = b.y - a.y;
+  const wx = p.x - a.x;
+  const wy = p.y - a.y;
+  const c1 = vx * wx + vy * wy;
+  if (c1 <= 0) {
+    return distance(p, a);
+  }
+  const c2 = vx * vx + vy * vy;
+  if (c2 <= c1) {
+    return distance(p, b);
+  }
+  const t = c1 / c2;
+  const px = a.x + t * vx;
+  const py = a.y + t * vy;
+  return (p.x - px) * (p.x - px) + (p.y - py) * (p.y - py);
+}
+
 function testSegments(a1, b1, a2, b2) {
   return orient(a1, b1, a2) * orient(a1, b1, b2) < 0 && orient(a2, b2, a1) * orient(a2, b2, b1) < 0;
 }
@@ -29,7 +48,7 @@ function fixPolygon(polygon) {
 }
 
 // O(n^4) but O(n^3) on average due to randomization
-function generateRandomPolygon(n, x1, y1, x2, y2) {
+function generateRandomPolygon(n, d, x1, y1, x2, y2) {
   var points = [];
   for (var i = 0; i < n; i++) {
     points[i] = { x: randomBetween(x1, x2), y: randomBetween(y1, y2) };
@@ -45,6 +64,7 @@ function generateRandomPolygon(n, x1, y1, x2, y2) {
     polygon.push(points[i]);
   }
   randomShuffle(points);
+  var dSq = d * d;
   while (true) {
     var stop = true;
     for (var i1 = polygon.length - 1, i2 = 0; i2 < polygon.length; i1 = i2, i2++) {
@@ -53,10 +73,20 @@ function generateRandomPolygon(n, x1, y1, x2, y2) {
           continue;
         }
         var bad = false;
-        for (var k1 = polygon.length - 1, k2 = 0; k2 < polygon.length; k1 = k2, k2++) {
+        for (var k1 = polygon.length - 1, k2 = 0; k2 < polygon.length && !bad; k1 = k2, k2++) {
           if (testSegments(polygon[i1], points[j], polygon[k1], polygon[k2]) || testSegments(polygon[i2], points[j], polygon[k1], polygon[k2])) {
             bad = true;
-            break;
+          }
+          if (pointSegmentDistance(points[j], polygon[k1], polygon[k2]) <= dSq) {
+            bad = true;
+          }
+        }
+        for (var k = 0; k < polygon.length && !bad; k++) {
+          if (k != i1 && pointSegmentDistance(polygon[k], polygon[i1], points[j]) <= dSq) {
+            bad = true;
+          }
+          if (k != i2 && pointSegmentDistance(polygon[k], polygon[i2], points[j]) <= dSq) {
+            bad = true;
           }
         }
         if (bad) {
@@ -71,6 +101,7 @@ function generateRandomPolygon(n, x1, y1, x2, y2) {
       break;
     }
   }
+  console.log("final size: " + polygon.length);
   return polygon;
 }
 
