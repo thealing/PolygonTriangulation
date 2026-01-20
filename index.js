@@ -18,6 +18,7 @@ function init() {
   polygonPoints = [];
   polygonFinished = false;
   triangulation = [];
+  targetRadius = window.devicePixelRatio * 10;
   undoButton.addEventListener("click", function() {
     if (polygonFinished) {
       polygonFinished = false;
@@ -63,7 +64,7 @@ function init() {
     const rect = displayCanvas.getBoundingClientRect();
     const x = (event.clientX - rect.left) * displayCanvas.width / rect.width;
     const y = (event.clientY - rect.top) * displayCanvas.height / rect.height;
-    const r = 10;
+    const r = targetRadius;
     if (polygonPoints.length > 0 && (x - polygonPoints[0].x) ** 2 + (y - polygonPoints[0].y) ** 2 < r ** 2) {
       polygonFinished = true;
       return;
