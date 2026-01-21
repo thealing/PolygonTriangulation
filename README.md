@@ -7,5 +7,6 @@ Hosted at: https://triangulation.netlify.app
 
 ## Screenshots
 
-<img src="https://github.com/user-attachments/assets/088046cd-4111-4e7a-89f2-cad43ac8dd74" />
-<img src="https://github.com/user-attachments/assets/33326956-f589-409d-9c28-9e74489aee23" />
+<img src="https://github.com/user-attachments/assets/7d35c6f8-f107-4924-aafd-a0fa2d718ef1" />
+<img src="https://github.com/user-attachments/assets/4528249b-0862-41da-b8f3-cb4c6ae2dcaa" />
+
