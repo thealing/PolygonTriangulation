@@ -18,15 +18,9 @@
   font-family: Verdana;
 }
 
-html {
-  height: 100%;
-}
-
-body {
+html, body {
   width: 100%;
   height: 100%;
-  min-width: calc(var(--min-content-width) + var(--toolbar-width));
-  min-height: calc(var(--min-content-height) + var(--header-height));
 }
 
 label, input {
@@ -36,7 +30,7 @@ label, input {
 }
 
 #header {
-  position: absolute;
+  position: relative;
   width: 100%;
   height: var(--header-height);
   padding: var(--padding);
@@ -47,17 +41,17 @@ label, input {
 }
 
 #toolbar {
-  position: absolute;
+  position: relative;
   width: var(--toolbar-width);
-  height: calc(100% - var(--header-height));
-  left: calc(100% - var(--toolbar-width));
-  top: var(--header-height);
+  min-height: calc(100% - var(--header-height));
+  margin-left: calc(100% - var(--toolbar-width));
   border-left: var(--border);
+  padding: var(--padding) 0;
 }
 
 #toolbar * {
   position: relative;
-  margin: var(--padding) 0;
+  margin-bottom: var(--padding);
   row-gap: var(--padding);
   justify-content: center;
 }
